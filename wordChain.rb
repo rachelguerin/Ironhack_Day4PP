@@ -3,12 +3,14 @@ require 'pry'
 class WordChain
 	def initialize(dictionary)
 		@dictionary = dictionary
+		@words = []
 	end
 
 	def find_chain(start,finish)
 		if start.length != finish.length
 			puts "Words must be the same length."
 		else
+			puts start
 			find_next_word(start,finish)
 		end
 	end
@@ -21,10 +23,11 @@ class WordChain
 				newWordArray = start.chars
 				newWordArray[i] = fletter
 				newWord = newWordArray.join
-				if @dictionary.exists? newWord
+				if @dictionary.exists?(newWord) && !@words.include?(newWord)
 					#found a word! 
-					binding.pry
+					#binding.pry
 					puts newWord
+					@words << newWord
 					find_next_word(newWord,finish)
 					break
 				end
